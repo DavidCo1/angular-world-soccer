@@ -1,0 +1,8 @@
+<h2>Competition</h2>
+<ul class="competition">
+  <li *ngFor="let competition of this.competitions.competitions">
+    <span class="badge">{{competition.id}}</span>
+    <span class="name">{{competition.name}}</span>
+    <a class="detalisLink" [routerLink]="['/competition', competition.id]">details</a>
+  </li>
+</ul>

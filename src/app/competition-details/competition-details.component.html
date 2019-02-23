@@ -1,2 +1,22 @@
-<h2>Competition {{this.competition.name}}</h2>
-<h3>Sessions</h3>
+<div *ngIf='this.competition'>
+  <h2>Competition {{this.competition.name}}</h2>
+  <div *ngIf='this.standing'>
+    <h3>Standing</h3>
+    <table>
+      <tr>
+        <th>Position</th>
+        <th></th>
+        <th>Team</th>
+        <th>Games</th>
+        <th>Points</th>
+      </tr>
+      <tr *ngFor='let position of this.standing.standings[0].table' >
+        <td class="badge">{{position.position}}</td>
+        <td class="name">{{position.team.name}}</td>
+        <td><img width="20px" src="{{position.team.crestUrl}}"/></td>
+        <td class="playedGames">{{position.playedGames}}</td>
+        <td class="points">{{position.points}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

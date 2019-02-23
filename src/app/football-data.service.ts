@@ -4,6 +4,7 @@ import { Competition } from './shared/competition.model';
 import { Observable } from 'rxjs';
 import { Team } from './shared/team.model';
 import { Match } from './shared/match.model';
+import { StandingList } from './shared/standings-list.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,10 @@ import { Match } from './shared/match.model';
 export class FootballDataService {
   private competitionsUrl = 'http://api.football-data.org/v2/competitions';  // URL to web api
   private competitionsMatchUrl = 'http://api.football-data.org/v2/competitions/{competitionId}/matchs';  // URL to web api
+  private competitionsStandingUrl = 'http://api.football-data.org/v2/competitions/{competitionId}/standings';  // URL to web api
   private teamUrl = 'http://api.football-data.org/v2/team';  // URL to web api
   private matchUrl = 'http://api.football-data.org/v2/match';  // URL to web api
+
   private token = '';
 
 
@@ -34,6 +37,13 @@ export class FootballDataService {
   getCompetitionDetails (competitionId: string): Observable<Competition> {
     const url = this.competitionsUrl + '/' + competitionId;
     return this.http.get<Competition>(url , {
+      headers: {'X-Auth-Token': this.token}
+   });
+  }
+
+  getCompetitionStanding (competitionId: string): Observable<StandingList> {
+    const url = this.competitionsStandingUrl.replace('{competitionId}', competitionId);
+    return this.http.get<StandingList>(url , {
       headers: {'X-Auth-Token': this.token}
    });
   }
